@@ -3,8 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 # Carregar os dados
-df = pd.read_csv(
-    r"C:\Users\Gilson\Desktop\Projeto com PySpark\data\steam_cleaned.csv")
+df = pd.read_csv(data\steam_cleaned.csv")
 
 # Título
 st.title("🎮 Steam Games Dashboard")
