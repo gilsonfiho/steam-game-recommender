@@ -22,6 +22,10 @@
 - **Pandas**: Para manipulação e análise de dados.
 - **Scikit-learn**: Algoritmos de recomendação baseados em aprendizado de máquina. (Em desenvolvimento).
 
+## Dados
+
+Os dados foram obtidos no Kaggle.com
+https://www.kaggle.com/datasets/nikdavis/steam-store-games
 
 ---
 
