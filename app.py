@@ -38,11 +38,67 @@ df['value_rating'] = df['positive_ratings'] / \
 all_tags = sorted(set(tag.strip()
                   for tags in df['steamspy_tags'].dropna() for tag in tags.split(';')))
 decades = sorted(df['decade'].unique())
+developers = sorted(df['developer'].dropna().unique())
 
-# Título
-st.title("🎮 Steam Games Dashboard")
-st.markdown(
-    "Análise interativa dos jogos da Steam com base em avaliações da comunidade.")
+# Título centralizado
+st.markdown("<h1 style='text-align: center;'>🎮 Steam Games Dashboard</h1>",
+            unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center;'>Análise interativa dos jogos da Steam com base em avaliações da comunidade.</h4>", unsafe_allow_html=True)
+
+# Filtros
+st.markdown("### 🔍 Filtros")
+col_f1, col_f2, col_f3 = st.columns([1, 2, 2])
+selected_decade = col_f1.selectbox("Filtrar por década:", ["Todos"] + decades)
+selected_tag = col_f2.selectbox("Filtrar por categoria:", ["Todos"] + all_tags)
+selected_developer = col_f3.selectbox(
+    "Filtrar por desenvolvedor:", ["Todos"] + developers)
+
+# Aplicar filtros
+filtered = df.copy()
+if selected_decade != "Todos":
+    filtered = filtered[filtered['decade'] == selected_decade]
+if selected_tag != "Todos":
+    filtered = filtered[filtered['steamspy_tags'].str.contains(
+        selected_tag, na=False)]
+if selected_developer != "Todos":
+    filtered = filtered[filtered['developer'] == selected_developer]
+
+top_10 = filtered.sort_values(by="positive_ratings", ascending=False).head(10)
+
+
+# Top 10 gráfico
+st.markdown("---")
+st.subheader(f"🏆 Top 10 Jogos de '{selected_tag}' na Década {selected_decade}")
+st.dataframe(top_10[['name', 'developer', 'positive_ratings', 'price']])
+fig = px.bar(
+    top_10,
+    x='positive_ratings',
+    y='name',
+    color='price',
+    orientation='h',
+    title="Top 10 Avaliações Positivas",
+    labels={'name': 'Jogo', 'positive_ratings': 'Avaliações Positivas'},
+    height=500
+)
+st.plotly_chart(fig, use_container_width=True)
+
+# Tendência de lançamentos por ano
+st.subheader("📈 Lançamentos por Ano")
+games_per_year = (
+    df[df['year'].notna()]
+    .groupby('year')
+    .size()
+    .reset_index(name='count')
+)
+fig_trend = px.line(
+    games_per_year,
+    x='year',
+    y='count',
+    title="Tendência de Lançamentos por Ano",
+    markers=True,
+    labels={'year': 'Ano', 'count': 'Quantidade de Jogos'}
+)
+st.plotly_chart(fig_trend, use_container_width=True)
 
 # Métricas principais
 col1, col2, col3 = st.columns(3)
@@ -52,57 +108,7 @@ col2.metric("👍 Média Avaliações Positivas",
 col3.metric("👎 Média Avaliações Negativas",
             f"{df['negative_ratings'].mean():,.0f}")
 
-# Filtros
-st.markdown("### 🔍 Filtros")
-col_f1, col_f2 = st.columns([1, 2])
-selected_decade = col_f1.selectbox("Filtrar por década:", decades)
-selected_tag = col_f2.selectbox("Filtrar por categoria:", all_tags)
-
-# Filtrar os dados
-filtered = df[
-    (df['decade'] == selected_decade) &
-    (df['steamspy_tags'].str.contains(selected_tag, na=False))
-]
-top_10 = filtered.sort_values(by="positive_ratings", ascending=False).head(10)
-
-# Gráficos lado a lado
-col_top10, col_trend = st.columns(2)
-
-with col_top10:
-    st.subheader(
-        f"🏆 Top 10 Jogos de '{selected_tag}' na Década {selected_decade}")
-    st.dataframe(top_10[['name', 'developer', 'positive_ratings', 'price']])
-    fig = px.bar(
-        top_10,
-        x='positive_ratings',
-        y='name',
-        color='price',
-        orientation='h',
-        title="Top 10 Avaliações Positivas",
-        labels={'name': 'Jogo', 'positive_ratings': 'Avaliações Positivas'},
-        height=500
-    )
-    st.plotly_chart(fig, use_container_width=True)
-
-with col_trend:
-    st.subheader("📈 Lançamentos por Ano")
-    games_per_year = (
-        df[df['year'].notna()]
-        .groupby('year')
-        .size()
-        .reset_index(name='count')
-    )
-    fig_trend = px.line(
-        games_per_year,
-        x='year',
-        y='count',
-        title="Tendência de Lançamentos por Ano",
-        markers=True,
-        labels={'year': 'Ano', 'count': 'Quantidade de Jogos'}
-    )
-    st.plotly_chart(fig_trend, use_container_width=True)
-
-# Linha de destaque: Gratuitos e Custo-benefício
+# Destaques: Gratuitos e Custo-benefício
 st.markdown("---")
 st.subheader("🎮 Destaques Especiais")
 col_free, col_value = st.columns(2)
@@ -120,6 +126,7 @@ with col_value:
     st.dataframe(
         top_value[['name', 'developer', 'positive_ratings', 'price', 'value_rating']])
 
-# Rodapé
+# Rodapé centralizado
 st.markdown("---")
-st.caption("Criado por Gilson — Powered by Streamlit & Plotly")
+st.markdown("<p style='text-align: center;'>Criado por Gilson — Powered by Streamlit & Plotly</p>",
+            unsafe_allow_html=True)
