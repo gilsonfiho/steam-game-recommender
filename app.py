@@ -5,9 +5,8 @@ import plotly.express as px
 # Configurar layout da página
 st.set_page_config(layout="wide")
 
-# Carregar dados
-df = pd.read_csv(
-    r"C:\Users\Gilson\Desktop\Projeto com PySpark\data\steam_cleaned.csv")
+# Carregar os dados
+df = pd.read_csv(data\steam_cleaned.csv")
 
 # Converter datas
 df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
