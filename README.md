@@ -58,8 +58,8 @@ O sistema utiliza os dados dos jogos da Steam, incluindo avaliações, gênero, 
 ### Exemplo de Funcionalidades:
 
 1. **Gráfico de Avaliações**: Visualize a distribuição das avaliações dos jogos em diferentes categorias.
-2. **Recomendação Personalizada**: Receba sugestões de jogos com base em suas preferências de gênero ou avaliações.
-3. **Filtros Interativos**: Filtre os jogos por preço, avaliação e outros critérios.
+2. **Recomendação Personalizada**: Receba sugestões de jogos com base em suas preferências de gênero ou desenvolvedor.
+3. **Filtros Interativos**: Filtre os jogos década, categoria e desenvolvedor.
 4. **Análise Visual**: Utilize gráficos interativos para entender as tendências de avaliação, gênero e preço dos jogos.
 
 ---
