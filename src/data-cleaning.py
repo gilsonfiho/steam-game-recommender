@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Carregar o dataset
-df = pd.read_csv(r"C:\Users\Gilson\Desktop\Projeto com PySpark\data\steam.csv")
+df = pd.read_csv(data\steam.csv")
 
 # Verificando as primeiras linhas para entender a estrutura
 print(df.head())
