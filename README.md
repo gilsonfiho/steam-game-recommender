@@ -24,7 +24,7 @@
 
 ## Dados
 
-Os dados foram obtidos no Kaggle.com
+Os dados foram obtidos no Kaggle.com:
 https://www.kaggle.com/datasets/nikdavis/steam-store-games
 
 ---
@@ -64,6 +64,12 @@ O sistema utiliza os dados dos jogos da Steam, incluindo avaliações, gênero, 
 
 ---
 
+### Próximos passos:
+
+Os próximos passos têm como foco a inclusão de dados mais recentes, a adoção do PySpark como alternativa ao Pandas para cenários com grandes volumes de dados e o desenvolvimento de modelos preditivos para identificar tendências de jogos.
+
+
+---
 ## 📂 Estrutura do Repositório
 
 ```bash
