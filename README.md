@@ -4,6 +4,8 @@
 
 **Steam Game Recommender Dashboard** é uma aplicação interativa desenvolvida com **Streamlit** para análise e recomendação de jogos da Steam. Utilizando dados do **Kaggle** e visualizações interativas com **Plotly** e **Pandas**, o sistema permite explorar as avaliações de jogos e realizar recomendações personalizadas com base em dados coletados.
 
+![Tela de demonstração](assets/tela.jpg)
+
 ---
 
 ## ✨ Features
