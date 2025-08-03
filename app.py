@@ -6,7 +6,7 @@ import plotly.express as px
 st.set_page_config(layout="wide")
 
 # Carregar os dados
-df = pd.read_csv(data\steam_cleaned.csv")
+df = pd.read_csv("data\steam_cleaned.csv")
 
 # Converter datas
 df['release_date'] = pd.to_datetime(df['release_date'], errors='coerce')
